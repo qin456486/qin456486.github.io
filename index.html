@@ -69,10 +69,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-测试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-web4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2025/01/22/%E6%B5%8B%E8%AF%95/" class="article-date">
-  <time class="dt-published" datetime="2025-01-22T14:41:21.000Z" itemprop="datePublished">2025-01-22</time>
+    <a href="/2025/01/23/web4/" class="article-date">
+  <time class="dt-published" datetime="2025-01-23T13:55:32.000Z" itemprop="datePublished">2025-01-23</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/22/%E6%B5%8B%E8%AF%95/">测试</a>
+      <a class="p-name article-title" href="/2025/01/23/web4/">web4</a>
     </h1>
   
 
@@ -91,25 +91,28 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>[文章目录]</p>
-<p><a href="#1.%E5%81%9A%E9%A2%98">1.做题</a></p>
-<p>​        <a href="#1.1%E9%A2%98%E7%9B%AE">1.1题目</a></p>
-<p>​       <a href="#1.2%E9%A2%98%E7%9B%AE">1.2题目</a></p>
-<p><a href="#2.%E6%80%BB%E7%BB%93">2.总结</a></p>
-<p>​       <a href="#2.1%E6%80%BB%E7%BB%93">2.1总结</a></p>
-<p>​       <a href="#2.2%E6%80%BB%E7%BB%93">2.2总结</a></p>
-<p>1.做题</p>
-<p>1.1题目</p>
-<p><img src="/imgs/$%7Bfiilename%7D/4-1737557548720-1.png"></p>
-<p>1.2题目</p>
-<p>2.总结</p>
-<p>2.1总结</p>
-<p>2.2总结</p>
+        <p><a href="">1.做题</a></p>
+<p><a href="">2.总结</a></p>
+<p><strong>1.1GXYCTF2019 Ping Ping Ping</strong>:</p>
+<p>​     打开题目后，看到如下页面，输入框里提示why not try bjut.edu.cn ,可知在输入框中输入点确定。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250123-225036.png"></p>
+<p>​     输入之后，看到下面的回显，这就是Ping命令网络诊断的信息。再尝试对127.0.0.1本地地址进行Ping操作，测试一下。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250123-225108.png"></p>
+<p>​     此时这个页面,显示Ping测试显示本地网络堆栈工作正常，并没有网络延迟或数据包丢失的问题。根据题目提示，这是Ping命令执行问题，用<code>**127.0.0.1;ls**</code>,查看目录文件。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250123-225443.png"></p>
+<p>​     看到含flag.php和index.php，输入<code>**127.0.0.1;cat flag.php**</code>进一步查看。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250123-233538.png"></p>
+<p>​     发现报错，根据提示，是过滤了空格。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250123-234355.png"></p>
+<p>​     用  <code>$lFS$1</code>代替空格，仍报错，flag也被过滤了。查看index.php,得到源代码。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;ip&#x27;</span>]))&#123;</span><br><span class="line">		<span class="variable">$ip</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;ip&#x27;</span>];</span><br><span class="line">		<span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/\&amp;|\/|\?|\*|\&lt;|[\x&#123;00&#125;-\x&#123;1f&#125;]|\|\&#x27;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;</span>, <span class="variable">$ip</span>, <span class="variable">$match</span>))&#123;</span><br><span class="line">			<span class="title function_ invoke__">print_r</span>(<span class="variable">$match</span>);</span><br><span class="line">			<span class="keyword">print</span>(<span class="variable">$ip</span>);</span><br><span class="line">			<span class="keyword">echo</span> <span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/\&amp;|\/|\?|\*|\&lt;|[\x&#123;00&#125;-\x&#123;20&#125;]|\&gt;|\&#x27;|\&quot;|\\|\(|\)|\[|\]|\&#123;|\&#125;/&quot;</span>, <span class="variable">$ip</span>, <span class="variable">$match</span>);</span><br><span class="line">			<span class="keyword">die</span>(<span class="string">&quot;fxck your symbol!&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/ /&quot;</span>, <span class="variable">$ip</span>))&#123;</span><br><span class="line">			<span class="keyword">die</span>(<span class="string">&quot;fxck your space!&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/bash/&quot;</span>, <span class="variable">$ip</span>))&#123;</span><br><span class="line">			<span class="keyword">die</span>(<span class="string">&quot;fxck your bash!&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/.*f.*l.*a.*g.*/&quot;</span>, <span class="variable">$ip</span>))&#123;</span><br><span class="line">			<span class="keyword">die</span>(<span class="string">&quot;fxck your flag!&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="variable">$a</span> = <span class="title function_ invoke__">shell_exec</span>(<span class="string">&quot;ping -c 4 &quot;</span>.<span class="variable">$ip</span>);</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">		<span class="title function_ invoke__">print_r</span>(<span class="variable">$a</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​      看题解可知可采用变量绕过，即<code>127.0.0.1;x=g;cat$IFS$1fla$x.php</code>,得到flag.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://qin456486.github.io/2025/01/22/%E6%B5%8B%E8%AF%95/" data-id="cm681a2oe0000a4v3dgnrauer" data-title="测试" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://qin456486.github.io/2025/01/23/web4/" data-id="cm69iqccd0000dgv38ebo9kpk" data-title="web4" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -383,7 +386,7 @@
       <ul>
         
           <li>
-            <a href="/2025/01/22/%E6%B5%8B%E8%AF%95/">测试</a>
+            <a href="/2025/01/23/web4/">web4</a>
           </li>
         
           <li>
