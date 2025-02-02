@@ -69,6 +69,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-misc1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/02/misc1/" class="article-date">
+  <time class="dt-published" datetime="2025-02-02T12:18:42.000Z" itemprop="datePublished">2025-02-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/02/misc1/">misc1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="">1.做题</a></p>
+<p><a href="">2.总结</a></p>
+<p><strong>（今天写misc）</strong></p>
+<p><strong>1.1攻防世界-适合作为桌面</strong>：</p>
+<p>​     打开附件，得到一张图片。放到010里没发现什么，放到stedsolve里看看，一直切换，发现一张二维码，如下。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-202446.png"></p>
+<p>​     CQR里扫一下得到一串十六进制数字。<img src="/imgs/$%7Bfiilename%7D/QQ20250202-202830.png"></p>
+<p>​          先将数字复制粘贴到一个txt文本中，保存好打开010Editor–点击左上角‘文件’–点击‘导入十六进制’。导入完成。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-203121.png"></p>
+<p>​      看到flag是<code>.py</code>文件，而且<code>03 F3 0D 0A</code>是<code>pyc</code>文件头。将010中的文本保存为<code>.pyc</code>文件，使用反编译<a target="_blank" rel="noopener" href="https://tool.lu/pyc/">python反编译 - 在线工具</a>，反编译完得到python代码。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-201744.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">flag</span>():</span><br><span class="line">    <span class="built_in">str</span> = [</span><br><span class="line">        <span class="number">102</span>,</span><br><span class="line">        <span class="number">108</span>,</span><br><span class="line">        <span class="number">97</span>,</span><br><span class="line">        <span class="number">103</span>,</span><br><span class="line">        <span class="number">123</span>,</span><br><span class="line">        <span class="number">51</span>,</span><br><span class="line">        <span class="number">56</span>,</span><br><span class="line">        <span class="number">97</span>,</span><br><span class="line">        <span class="number">53</span>,</span><br><span class="line">        <span class="number">55</span>,</span><br><span class="line">        <span class="number">48</span>,</span><br><span class="line">        <span class="number">51</span>,</span><br><span class="line">        <span class="number">50</span>,</span><br><span class="line">        <span class="number">48</span>,</span><br><span class="line">        <span class="number">56</span>,</span><br><span class="line">        <span class="number">53</span>,</span><br><span class="line">        <span class="number">52</span>,</span><br><span class="line">        <span class="number">52</span>,</span><br><span class="line">        <span class="number">49</span>,</span><br><span class="line">        <span class="number">101</span>,</span><br><span class="line">        <span class="number">55</span>,</span><br><span class="line">        <span class="number">125</span>]</span><br><span class="line">    flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">str</span>:</span><br><span class="line">        flag += <span class="built_in">chr</span>(i)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span> flag</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​     放在Vscode中解码，发现出错了，原来是代码不完整，让ai补全，自己修正一下格式，得到flag。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-201652.png"></p>
+<p><strong>1.2攻防世界-心仪的公司</strong>:</p>
+<p>​    （1）. 这是一道流量分析题。根据题目提示，可以直接<code> http contains &quot;shell&quot; </code>,进行过滤。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-215043.png"></p>
+<p>​     在后两个里追踪http流可以得到flag。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-215009.png"></p>
+<p>​     （2）.也可以在kali中写。用strings 命令查看，通过  {  找flag。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-214301.png"></p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250202-214142.png"></p>
+<p><strong>2.1总结</strong>：(1) 03 F3 0D 0A，是<code>pyc</code>文件头。(2)<code>.py</code> 文件是Python源代码文件。包含了人类可读的Python代码。(3)<code>.pyc</code> 文件是编译后的字节码文件，包含了Python虚拟机可以直接执行的二进制代码，对人类来说不可读。(4)把<code>pyc</code>文件转为<code>py</code>文件就行了。</p>
+<p><strong>2.2总结</strong>: 做流量分析时，可以打开kali用strings命令找flag。<code> strings 位置 | grep &#123; </code>,或者<code>grep &quot;fl4g&quot; -a 位置 </code>，fl4g是指与flag相似的等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/02/02/misc1/" data-id="cm6nqcg0v0000a4v39juv2nv6" data-title="misc1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-web7" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/31/web7/" class="article-date">
@@ -561,7 +624,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
     </div>
   </div>
 
@@ -572,6 +635,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/02/02/misc1/">misc1</a>
+          </li>
         
           <li>
             <a href="/2025/01/31/web7/">web7</a>
@@ -587,10 +654,6 @@
         
           <li>
             <a href="/2025/01/23/web4/">web4</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/18/web3/">web3</a>
           </li>
         
       </ul>
