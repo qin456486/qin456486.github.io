@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>web10 | qin</title>
+  <title>web9 | qin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="web10">
+  <meta name="description" content="关于md5 1.md5注入：?password&#x3D;fffifdyop . 2.如果一段php代码需要构造两个字符串a和b，二者需不相同，但md5值却相同。想到md5碰撞和数组绕过。 3.关于md5碰撞，利用了PHP在使用“!&#x3D;”、“&#x3D;&#x3D;”比较哈希字符串时，会将0e开头的字符串当做0处理，因此如果字符串的md5值为0e开头，则可以进行md5碰撞，使PHP认为它们是相等的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web9">
 <meta property="og:url" content="https://qin456486.github.io/2025/02/09/web9/index.html">
 <meta property="og:site_name" content="qin">
+<meta property="og:description" content="关于md5 1.md5注入：?password&#x3D;fffifdyop . 2.如果一段php代码需要构造两个字符串a和b，二者需不相同，但md5值却相同。想到md5碰撞和数组绕过。 3.关于md5碰撞，利用了PHP在使用“!&#x3D;”、“&#x3D;&#x3D;”比较哈希字符串时，会将0e开头的字符串当做0处理，因此如果字符串的md5值为0e开头，则可以进行md5碰撞，使PHP认为它们是相等的。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-02-09T14:06:58.000Z">
-<meta property="article:modified_time" content="2025-02-09T14:06:58.022Z">
+<meta property="article:modified_time" content="2025-02-09T16:49:42.617Z">
 <meta property="article:author" content="qin456486">
 <meta name="twitter:card" content="summary">
   
@@ -83,7 +85,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      web10
+      web9
     </h1>
   
 
@@ -91,11 +93,19 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p><a href="">关于md5</a></p>
+<p>1.md5注入：<code>?password=fffifdyop </code>.</p>
+<p>2.如果一段php代码需要构造两个字符串a和b，二者需不相同，但md5值却相同。想到md5碰撞和数组绕过。</p>
+<p>3.关于md5碰撞，利用了PHP在使用“!&#x3D;”、“&#x3D;&#x3D;”比较哈希字符串时，会将0e开头的字符串当做0处理，因此如果字符串的md5值为0e开头，则可以进行md5碰撞，使PHP认为它们是相等的。</p>
+<p>4.因为这个是字符串之间进行比较，想要绕过这个弱比较只能用0e的方式。 在PHP中”0e”判断为科学计数法，0e123就是0乘以10的123次方 不难推出：0e123456789&#x3D;&#x3D;0e1 &#x2F;&#x2F; 因为0的任意次方都为0 不过有一个注意点：</p>
+<p>在0e后面不能含有字母！！!<br>否则判断为False<br>数组绕过，主要利用了md5函数不能处理数组，当传入数组时，经md5加密后，都为null，相等。</p>
+<p>5.md5后为0E开头的字符串</p>
+<p>s878926199a<br>0e545993274517709034328855841020<br>s155964671a<br>0e342768416822451524974117254469<br>s214587387a<br>0e848240448830537924465865611904<br>s214587387a<br>0e848240448830537924465865611904<br>s878926199a<br>0e545993274517709034328855841020</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://qin456486.github.io/2025/02/09/web9/" data-id="cm6tiwpee0000wsv312khbwky" data-title="web10" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://qin456486.github.io/2025/02/09/web9/" data-id="cm6tiwpee0000wsv312khbwky" data-title="web9" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -146,7 +156,7 @@
       <ul>
         
           <li>
-            <a href="/2025/02/09/web9/">web10</a>
+            <a href="/2025/02/09/web9/">web9</a>
           </li>
         
           <li>
