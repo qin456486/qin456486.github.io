@@ -110,7 +110,7 @@
     <article id="post-web9" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/06/web9/" class="article-date">
-  <time class="dt-published" datetime="2025-02-06T15:58:58.000Z" itemprop="datePublished">2025-02-06</time>
+  <time class="dt-published" datetime="2025-02-06T15:58:58.293Z" itemprop="datePublished">2025-02-06</time>
 </a>
     
   </div>
@@ -121,7 +121,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/06/web9/">web9</a>
+      <a class="p-name article-title" href="/2025/02/06/web9/">web8</a>
     </h1>
   
 
@@ -129,11 +129,35 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p><a href="">1.做题</a></p>
+<p><a href="">2.总结</a></p>
+<p><strong>1.1攻防世界fileinclude:</strong></p>
+<p>​     开启靶机，看到如下页面，猜测flag应该包含在<code>/var/www/html/flag.php</code>里面。</p>
+<p><img src="/hexoblog/source/imgs/QQ20250209-134609.png"></p>
+<p>​     Ctrl+U查看源代码。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>( !<span class="title function_ invoke__">ini_get</span>(<span class="string">&#x27;display_errors&#x27;</span>) ) &#123;</span><br><span class="line">  <span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;display_errors&#x27;</span>, <span class="string">&#x27;On&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(E_ALL);</span><br><span class="line"><span class="variable">$lan</span> = <span class="variable">$_COOKIE</span>[<span class="string">&#x27;language&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(!<span class="variable">$lan</span>)</span><br><span class="line">&#123;</span><br><span class="line">	@<span class="title function_ invoke__">setcookie</span>(<span class="string">&quot;language&quot;</span>,<span class="string">&quot;english&quot;</span>);</span><br><span class="line">	@<span class="keyword">include</span>(<span class="string">&quot;english.php&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	@<span class="keyword">include</span>(<span class="variable">$lan</span>.<span class="string">&quot;.php&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$x</span>=<span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;index.php&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$x</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​     可以看到存在文件包含漏洞，因为<code>$lan</code> 变量的值是从客户端的 cookie 中获取的（<code>$lan = $_COOKIE[&#39;language&#39;];</code>），这意味着用户可以通过修改自己浏览器中的 cookie 值来控制 <code>$lan</code> 的值。由于 <code>$lan</code> 直接用于构造要包含的文件名，攻击者可以通过修改 cookie 来尝试包含任意文件。对language赋值，构造payload。</p>
+<p>​     代码中还包含file_get_contents()函数，指把整个文件读入一个字符串中。而flag可能存在于flag.php中，用php伪协议中的php:&#x2F;&#x2F;filter协议读取flag.php的文件源码。</p>
+<p>​     bp抓包，修改或者添加cookie值为：</p>
+<p><code>?language=php://filter/read=convert.base64-encode/resource=/var/www/html/flag </code></p>
+<p><img src="/hexoblog/source/imgs/QQ20250209-144609.png"></p>
+<p>​     修改完得到base编码，解码可得flag。</p>
+<p><strong>1.2攻防世界fileclude：</strong></p>
+<p>​     开启靶机，看到如下代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&quot;file1&quot;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&quot;file2&quot;</span>]))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$file1</span> = <span class="variable">$_GET</span>[<span class="string">&quot;file1&quot;</span>];</span><br><span class="line">    <span class="variable">$file2</span> = <span class="variable">$_GET</span>[<span class="string">&quot;file2&quot;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="variable">$file1</span>) &amp;&amp; !<span class="keyword">empty</span>(<span class="variable">$file2</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$file2</span>) === <span class="string">&quot;hello ctf&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">include</span>(<span class="variable">$file1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&quot;NONONO&quot;</span>);</span><br><span class="line">&#125;            </span><br></pre></td></tr></table></figure>
+
+<p>​      include引用flag.php并不能得到flag，使用php:&#x2F;&#x2F;伪协议读取flag.php文件的内容，<code>file1=php://filter/read=convert.base64-encode/resource=flag.php</code>。file2被放入了file_get_contents函数中，并要求返回值为 hello ctf,用php:&#x2F;&#x2F;伪协议绕过<code> file2=php://input</code>,post数据为hello ctf。  bp抓包。</p>
+<p> <img src="/hexoblog/source/imgs/QQ20250209-215626.png">                                                                                                                                                 </p>
+<p>​     base64解右下角码，得到flag。</p>
+<p><strong>2.1总结</strong>：看到<strong>file_get_contents()函数</strong>，想到用php伪协议中的<strong>php:&#x2F;&#x2F;filter</strong> 读取文件源码。</p>
+<p><img src="/hexoblog/source/imgs/QQ20250209-145016.png"></p>
+<p><strong>2.2总结</strong>：看到<strong>file_get_contents()<strong>函数可以用</strong>php:&#x2F;&#x2F;input</strong>绕过，该协议可以访问请求的原始数据的只读流。即可以直接读取到POST上没有经过解析的原始数据。即<strong>php:&#x2F;&#x2F;input</strong>可以将POST的数据读过来来赋值给参数。<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51524329/article/details/121439731">文件包含&amp;PHP伪协议利用_include.php?file&#x3D;-CSDN博客</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://qin456486.github.io/2025/02/06/web9/" data-id="cm6tiwpee0000wsv312khbwky" data-title="web9" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="https://qin456486.github.io/2025/02/06/web9/" data-id="cm6tiwpee0000wsv312khbwky" data-title="web8" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -671,7 +695,7 @@
           </li>
         
           <li>
-            <a href="/2025/02/06/web9/">web9</a>
+            <a href="/2025/02/06/web9/">web8</a>
           </li>
         
           <li>
