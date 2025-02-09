@@ -107,68 +107,6 @@
 
 
   
-    <article id="post-web8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/04/web8/" class="article-date">
-  <time class="dt-published" datetime="2025-02-04T15:49:11.982Z" itemprop="datePublished">2025-02-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/04/web8/">web8</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><a href="">1.做题</a></p>
-<p><a href="">2.总结</a></p>
-<p><strong>1.1攻防世界fileinclude:</strong></p>
-<p>​     开启靶机，看到如下页面，猜测flag应该包含在<code>/var/www/html/flag.php</code>里面。</p>
-<p><img src="/imgs/$%7Bfiilename%7D/QQ20250209-134609.png"></p>
-<p>​     Ctrl+U查看源代码。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>( !<span class="title function_ invoke__">ini_get</span>(<span class="string">&#x27;display_errors&#x27;</span>) ) &#123;</span><br><span class="line">  <span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;display_errors&#x27;</span>, <span class="string">&#x27;On&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(E_ALL);</span><br><span class="line"><span class="variable">$lan</span> = <span class="variable">$_COOKIE</span>[<span class="string">&#x27;language&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(!<span class="variable">$lan</span>)</span><br><span class="line">&#123;</span><br><span class="line">	@<span class="title function_ invoke__">setcookie</span>(<span class="string">&quot;language&quot;</span>,<span class="string">&quot;english&quot;</span>);</span><br><span class="line">	@<span class="keyword">include</span>(<span class="string">&quot;english.php&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	@<span class="keyword">include</span>(<span class="variable">$lan</span>.<span class="string">&quot;.php&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$x</span>=<span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;index.php&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$x</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>​     可以看到存在文件包含漏洞，因为<code>$lan</code> 变量的值是从客户端的 cookie 中获取的（<code>$lan = $_COOKIE[&#39;language&#39;];</code>），这意味着用户可以通过修改自己浏览器中的 cookie 值来控制 <code>$lan</code> 的值。由于 <code>$lan</code> 直接用于构造要包含的文件名，攻击者可以通过修改 cookie 来尝试包含任意文件。对language赋值，构造payload。</p>
-<p>​     代码中还包含file_get_contents()函数，指把整个文件读入一个字符串中。而flag可能存在于flag.php中，用php伪协议中的php:&#x2F;&#x2F;filter协议读取flag.php的文件源码。</p>
-<p>​     bp抓包，修改或者添加cookie值为：</p>
-<p><code>?language=php://filter/read=convert.base64-encode/resource=/var/www/html/flag </code></p>
-<p><img src="/imgs/$%7Bfiilename%7D/QQ20250209-144609.png"></p>
-<p>​     修改完得到base编码，解码可得flag。</p>
-<p><strong>1.2攻防世界fileclude：</strong></p>
-<p>​     开启靶机，看到如下代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&quot;file1&quot;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&quot;file2&quot;</span>]))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="variable">$file1</span> = <span class="variable">$_GET</span>[<span class="string">&quot;file1&quot;</span>];</span><br><span class="line">    <span class="variable">$file2</span> = <span class="variable">$_GET</span>[<span class="string">&quot;file2&quot;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="variable">$file1</span>) &amp;&amp; !<span class="keyword">empty</span>(<span class="variable">$file2</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$file2</span>) === <span class="string">&quot;hello ctf&quot;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">include</span>(<span class="variable">$file1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&quot;NONONO&quot;</span>);</span><br><span class="line">&#125;            </span><br></pre></td></tr></table></figure>
-
-<p>​      include引用flag.php并不能得到flag，使用php:&#x2F;&#x2F;伪协议读取flag.php文件的内容，<code>file1=php://filter/read=convert.base64-encode/resource=flag.php</code>。file2被放入了file_get_contents函数中，并要求返回值为 hello ctf,用php:&#x2F;&#x2F;伪协议绕过<code> file2=php://input</code>,post数据为hello ctf。  bp抓包。</p>
-<p> <img src="/imgs/$%7Bfiilename%7D/QQ20250209-215626.png">                                                                                                                                                  </p>
-<p>​     base64解右下角码，得到flag。</p>
-<p><strong>2.1总结</strong>：看到<strong>file_get_contents()函数</strong>，想到用php伪协议中的<strong>php:&#x2F;&#x2F;filter</strong> 读取文件源码。</p>
-<p><img src="/imgs/$%7Bfiilename%7D/QQ20250209-145016.png"></p>
-<p><strong>2.2总结</strong>：看到<strong>file_get_contents()<strong>函数可以用</strong>php:&#x2F;&#x2F;input</strong>绕过，该协议可以访问请求的原始数据的只读流。即可以直接读取到POST上没有经过解析的原始数据。即<strong>php:&#x2F;&#x2F;input</strong>可以将POST的数据读过来来赋值给参数。<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51524329/article/details/121439731">文件包含&amp;PHP伪协议利用_include.php?file&#x3D;-CSDN博客</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://qin456486.github.io/2025/02/04/web8/" data-id="cm6qnoge20000tkv3chg09a1k" data-title="web8" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-misc1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/02/misc1/" class="article-date">
@@ -655,12 +593,58 @@
 
 
   
-
-
-  <nav id="page-nav">
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/11/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2025-01-11T15:54:04.608Z" itemprop="datePublished">2025-01-11</time>
+</a>
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/11/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/01/11/hello-world/" data-id="cm5v6icsh000290v34byagswm" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
 
 </section>
         
@@ -695,10 +679,6 @@
           </li>
         
           <li>
-            <a href="/2025/02/04/web8/">web8</a>
-          </li>
-        
-          <li>
             <a href="/2025/02/02/misc1/">misc1</a>
           </li>
         
@@ -708,6 +688,10 @@
         
           <li>
             <a href="/2025/01/25/web6/">web6</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/web5/">web5</a>
           </li>
         
       </ul>
