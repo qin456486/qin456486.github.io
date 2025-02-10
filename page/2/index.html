@@ -69,6 +69,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-web1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/17/web1/" class="article-date">
+  <time class="dt-published" datetime="2025-01-17T05:24:48.000Z" itemprop="datePublished">2025-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/17/web1/">web1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="robots协议"><a href="#robots协议" class="headerlink" title="robots协议"></a>robots协议</h1><p>关于攻防世界和nssctf的robots.txt的认识。</p>
+<p>&#x3D;&#x3D;<strong>概念</strong>&#x3D;&#x3D;： robots是网站跟<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%88%AC%E8%99%AB/22046949?fromModule=lemma_inlink">爬虫</a>间的协议。简单来说，robots.txt就是位于网站根目录的一个txt文本文件，主要的作用是告诉搜索引擎哪些页面可以抓取，哪些页面不可以抓取。一般我们查看它只需要输入：网站根目录&#x2F;robots.txt,示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User-agent:*</span><br><span class="line">Disallow:/private/</span><br><span class="line">Disallow:/admin/</span><br></pre></td></tr></table></figure>
+
+<p>Disallow:&#x2F;private&#x2F;，Disallow:&#x2F;admin&#x2F;指的是搜索引擎不要抓取网站中包含在&#x2F;private&#x2F;，&#x2F;admin&#x2F;文件夹的任何内容。</p>
+<p>&#x3D;&#x3D;<strong>攻防世界WWW-Rob</strong>&#x3D;&#x3D;:</p>
+<p>打开题目后，尝试了几次不知道怎么写，看题解发现是robots协议。</p>
+<p>&#x3D;&#x3D;<strong><img src="D:\博客图片\1.png" alt="1"></strong>&#x3D;&#x3D;</p>
+<p>在网址后输入&#x2F;robots.txt,查看&#x2F;fl0g.php里的内容，得到flag。<img src="D:\博客图片\QQ20250117-190330.png" alt="QQ20250117-190330"></p>
+<p><img src="D:\博客图片\QQ20250117-190551.png" alt="QQ20250117-190551"></p>
+<p>&#x3D;&#x3D;<strong>攻防世界robots</strong>&#x3D;&#x3D;:</p>
+<p>进到题目里后网页是一片空白，我还以为页面卡了，但是结合题目robots想到robots协议，</p>
+<p><img src="D:\博客图片\QQ20250117-211718.png" alt="QQ20250117-211718"></p>
+<p>访问后出现该界面，最后访问Disallow后的文件夹就可以得到flag。</p>
+<p><img src="D:\博客图片\QQ20250117-211952.png" alt="QQ20250117-211952"></p>
+<p>做完后又看了题解，明白了为什么刚进去时网页是完全空白的。下面总结。</p>
+<p>&#x3D;&#x3D;<strong>总结</strong>&#x3D;&#x3D;：robots协议也称爬虫协议、爬虫规则等,是指网站建立一个robots.txt文件来告诉搜索引擎哪些页面可以抓取,哪些页面不能抓取,而搜索引擎则通过读取robots.txt文件来识别这个页面是否允许被抓取。但是,这个robots协议不是防火墙,也没有强制执行力,搜索引擎完全可以忽视robots.txt文件去抓取网页的快照。robots协议并不是一个规范，而只是约定俗成的，所以并不能保证网站的隐私。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/01/17/web1/" data-id="cm60snw260000x0v3haqretta" data-title="web1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/11/hello-world/" class="article-date">
@@ -156,6 +211,10 @@
       <ul>
         
           <li>
+            <a href="/2025/02/10/web10/">web10</a>
+          </li>
+        
+          <li>
             <a href="/2025/02/09/web9/">web9</a>
           </li>
         
@@ -169,10 +228,6 @@
         
           <li>
             <a href="/2025/01/31/web7/">web7</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/25/web6/">web6</a>
           </li>
         
       </ul>
