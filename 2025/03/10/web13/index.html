@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>web13 | qin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="任意文件读取漏洞 一.简介： ​	任意文件读取漏洞，是指攻击者可以通过某些漏洞，绕过应用程序的限制，直接读取应用程序之外的文件。 ​	这种漏洞通常是由于应用程序没有对用户输入进行充分的验证和过滤而导致的。攻击者可以通过构造恶意的请求来利用该漏洞，从而读取或下载他们本来无权访问的文件，如密码、私钥、证书等，会提供攻击者更多可用信息，提高被入侵的风险。 二.漏洞利用条件: 1.存在读文件的函数 (1)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web13">
+<meta property="og:url" content="https://qin456486.github.io/2025/03/10/web13/index.html">
+<meta property="og:site_name" content="qin">
+<meta property="og:description" content="任意文件读取漏洞 一.简介： ​	任意文件读取漏洞，是指攻击者可以通过某些漏洞，绕过应用程序的限制，直接读取应用程序之外的文件。 ​	这种漏洞通常是由于应用程序没有对用户输入进行充分的验证和过滤而导致的。攻击者可以通过构造恶意的请求来利用该漏洞，从而读取或下载他们本来无权访问的文件，如密码、私钥、证书等，会提供攻击者更多可用信息，提高被入侵的风险。 二.漏洞利用条件: 1.存在读文件的函数 (1)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-03-10T13:01:05.000Z">
+<meta property="article:modified_time" content="2025-03-10T13:27:31.807Z">
+<meta property="article:author" content="qin456486">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="qin" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">qin</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://qin456486.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-web13" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/10/web13/" class="article-date">
+  <time class="dt-published" datetime="2025-03-10T13:01:05.000Z" itemprop="datePublished">2025-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      web13
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a href="">任意文件读取漏洞</a></p>
+<p><strong>一.简介：</strong></p>
+<p>​	任意文件读取漏洞，是指攻击者可以通过某些漏洞，绕过应用程序的限制，直接读取应用程序之外的文件。</p>
+<p>​	这种漏洞通常是由于应用程序没有对用户输入进行充分的验证和过滤而导致的。攻击者可以通过构造恶意的请求来利用该漏洞，从而读取或下载他们本来无权访问的文件，如密码、私钥、证书等，会提供攻击者更多可用信息，提高被入侵的风险。</p>
+<p><strong>二.漏洞利用条件:</strong></p>
+<p>1.存在读文件的函数</p>
+<p>(1)<code>fopen()函数</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]; <span class="comment">// 用户提供的文件路径</span></span><br><span class="line"><span class="variable">$fp</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$file</span>, <span class="string">&#x27;r&#x27;</span>); <span class="comment">// 打开文件</span></span><br><span class="line"><span class="variable">$data</span> = <span class="title function_ invoke__">fread</span>(<span class="variable">$fp</span>, <span class="title function_ invoke__">filesize</span>(<span class="variable">$file</span>)); <span class="comment">// 读取文件内容</span></span><br><span class="line"><span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>); <span class="comment">// 关闭文件</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$data</span>; <span class="comment">// 输出文件内容                 </span></span><br></pre></td></tr></table></figure>
+
+<p>(2)<code>fread() 函数</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]; <span class="comment">// 用户提供的文件路径</span></span><br><span class="line"><span class="variable">$fp</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$file</span>, <span class="string">&#x27;r&#x27;</span>); <span class="comment">// 打开文件</span></span><br><span class="line"><span class="variable">$data</span> = <span class="title function_ invoke__">fread</span>(<span class="variable">$fp</span>, <span class="number">1024</span>); <span class="comment">// 读取文件前 1024 字节的内容</span></span><br><span class="line"><span class="title function_ invoke__">fclose</span>(<span class="variable">$fp</span>); <span class="comment">// 关闭文件</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$data</span>; <span class="comment">// 输出文件内容                   </span></span><br></pre></td></tr></table></figure>
+
+<p>(3)<code>include() 函数</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]; <span class="comment">// 用户提供的文件路径</span></span><br><span class="line"><span class="keyword">include</span>(<span class="variable">$file</span>); <span class="comment">// 包含文件并输出内容         </span></span><br></pre></td></tr></table></figure>
+
+<p>(4)<code>readfile() 函数</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]; <span class="comment">// 用户提供的文件路径</span></span><br><span class="line"><span class="title function_ invoke__">readfile</span>(<span class="variable">$file</span>); <span class="comment">// 读取并输出文件内容      </span></span><br></pre></td></tr></table></figure>
+
+<p>(5)<code>file_get_contents() 函数</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]; <span class="comment">// 用户提供的文件路径</span></span><br><span class="line"><span class="variable">$data</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$file</span>); <span class="comment">// 读取文件内容</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$data</span>; <span class="comment">// 输出文件内容        </span></span><br></pre></td></tr></table></figure>
+
+<p>(6)<code>file() 函数</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$file</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>]; <span class="comment">// 用户提供的文件路径</span></span><br><span class="line"><span class="variable">$data</span> = <span class="title function_ invoke__">file</span>(<span class="variable">$file</span>); <span class="comment">// 将文件读入数组中</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">implode</span>(<span class="string">&#x27;&#x27;</span>, <span class="variable">$data</span>); <span class="comment">// 输出文件内容               </span></span><br></pre></td></tr></table></figure>
+
+<p><strong>三.漏洞类型</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index.php?f=../../../../../../etc/passwd</span><br><span class="line">index.php?f=../index.php</span><br><span class="line">index.php?f=ﬁle:<span class="comment">///etc/passwd          </span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注</strong>：</p>
+<p>(1)<code>/etc/passwd</code>:该文件储存了该Linux系统中所有用户的一些基本信息，只有root权限才可以修改。</p>
+<p>(2)<code>/proc/self</code>:proc是伪文件系统，它提供了内核数据结构的接口。访问的是当前进程的内核数据.</p>
+<p>(3)<code>/proc/self/cmdline</code>:该文件包含的内容为当前进程执行的命令行参数。</p>
+<p>(4)<code>flask-session结构</code>:flask_session是flask框架实现session功能的一个插件。其session结构分为三部分：序列化内容+时间+防篡改值，这三部分内容加密后以符号 “.”来进行分隔。flask_session默认session的储存是在用户Cookie中。但也可以指定存储在数据库，缓存中间件，服务器本地文件等等之中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://qin456486.github.io/2025/03/10/web13/" data-id="cm833ri8m00a8wov387yg6sxh" data-title="web13" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/03/11/web14/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          web14
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/11/web11/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">web11</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/03/13/web15/">web14</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/11/web14/">web14</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/10/web13/">web13</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/11/web11/">web11</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/10/web10/">web10</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 qin456486<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
